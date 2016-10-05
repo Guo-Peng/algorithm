@@ -19,6 +19,11 @@ import java.util.stream.IntStream;
  * [[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]
  */
 public class QueueReconstructionByHeight {
+    /**
+     * solution 1
+     * 按照height排序后,key的值即为元素在剩余位置的索引
+     * 如果出现相同的height则索引需要减去count
+     */
     static class com implements Comparator<int[]> {
         @Override
         public int compare(int[] o1, int[] o2) {
