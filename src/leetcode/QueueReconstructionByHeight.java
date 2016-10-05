@@ -33,7 +33,7 @@ public class QueueReconstructionByHeight {
     public static int[][] reconstructQueue(int[][] people) {
         Arrays.sort(people, new com());
         int[][] queue = new int[people.length][2];
-        ArrayList<Integer> index = new ArrayList<Integer>();
+        ArrayList<Integer> index = new ArrayList<>();
         for (int i = 0; i < people.length; i++)
             index.add(i);
 
