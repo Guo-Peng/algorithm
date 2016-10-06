@@ -20,23 +20,23 @@ import java.util.stream.IntStream;
  */
 public class QueueReconstructionByHeight {
     /**
-     * solution 1
+     * solution 1  29ms
      * 按照height排序后,key的值即为元素在剩余位置的索引
      * 如果出现相同的height则索引需要减去count
      */
     static class com implements Comparator<int[]> {
         @Override
         public int compare(int[] o1, int[] o2) {
-            if (o1[0] > o2[0]) return 1;
-            else if (o1[0] < o2[0]) return -1;
-            else if (o1[1] > o2[1]) return 1;
-            else if (o1[1] < o2[1]) return -1;
-            else return 0;
+            if (o1[0] == o2[0])
+                return o1[1] - o2[1];
+            else
+                return o1[0] - o2[0];
         }
     }
 
-    public static int[][] reconstructQueue(int[][] people) {
+    public static int[][] reconstructQueue1(int[][] people) {
         Arrays.sort(people, new com());
+        print(people);
         int[][] queue = new int[people.length][2];
         ArrayList<Integer> index = new ArrayList<>();
         for (int i = 0; i < people.length; i++)
@@ -57,18 +57,40 @@ public class QueueReconstructionByHeight {
         return queue;
     }
 
-    public static void print(int[][] people) {
-        for (int[] element : people) {
-            System.out.println(element[0] + "\t" + element[1]);
+    /**
+     * solution 2  insert 89ms
+     * 从大到小直接根据key插入list中
+     * 后续插入的小元素不会影响大元素的位置
+     * 相同height key较大的必然出现在其之后
+     * sort 可由 PriorityQueue 代替
+     */
+    public static int[][] reconstructQueue(int[][] people) {
+        if (people.length == 0 || people[0].length == 0) return people;
+        int n = people.length;
+        Arrays.sort(people, (int[] a, int[] b) -> {
+            if (a[0] == b[0])
+                return a[1] - b[1];
+            else
+                return b[0] - a[0];
+        });
+
+        List<int[]> list = new ArrayList<>();
+        for (int[] pos : people) {
+            list.add(pos[1], pos);
         }
+
+        return list.toArray(new int[n][2]);
+    }
+
+    public static void print(int[][] people) {
+        for (int[] element : people)
+            System.out.println(element[0] + "\t" + element[1]);
+        System.out.println("");
     }
 
     public static void main(String[] args) {
         int[][] a = {{7, 0}, {4, 4}, {7, 1}, {5, 2}, {6, 1}, {5, 0}};
         int[][] s = reconstructQueue(a);
         print(s);
-
-        int[] r = IntStream.range(0, 10).toArray();
-        for (int i : r) System.out.println(i);
     }
 }
