@@ -41,7 +41,7 @@ public class MaximumDepthOfBinaryTree {
     }
 
     public void print(TreeNode node) {
-        if(node == null)
+        if (node == null)
             return;
         System.out.println(node.val);
         print(node.left);
@@ -58,9 +58,14 @@ public class MaximumDepthOfBinaryTree {
         }
     }
 
+
+    /**
+     * solution 1   1ms
+     * 递归判断d是否大于count
+     */
     int count = 0;
 
-    public int maxDepth(TreeNode root) {
+    public int maxDepth1(TreeNode root) {
         depth(root, 1);
         return count;
     }
@@ -75,6 +80,14 @@ public class MaximumDepthOfBinaryTree {
         if (d > count)
             count = d;
     }
+
+    /**
+     * solution 2  2ms
+     */
+    public int maxDepth(TreeNode root) {
+        return root == null ? 0 : (Math.max(maxDepth(root.left), maxDepth(root.right)) + 1);
+    }
+
 
     public static void main(String[] args) {
         int[] a = {0, 0, 0, 0, -1, -1, 0, -1, -1, -1, 0};
