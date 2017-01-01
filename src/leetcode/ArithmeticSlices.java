@@ -30,11 +30,11 @@ package leetcode;
 public class ArithmeticSlices {
 
     /**
-     * solution 1
+     * solution 1   2ms
      * 检测连续的最大序列后计算该序列的slice的个数 此时 j = index + 1
      * 然后检测 index   index + 1   index + 2是否符合
      */
-    public static int numberOfArithmeticSlices(int[] A) {
+    public static int numberOfArithmeticSlices1(int[] A) {
         int count = 0;
         if (A.length < 3) return count;
 
@@ -50,6 +50,23 @@ public class ArithmeticSlices {
             j += 1;
         }
         return count;
+    }
+
+    /**
+     * solution 2   2ms
+     * 仍然是一次检测最大序列,cur负责指示序列的长度 cur
+     * 检测失败后cur归零重新检测
+     */
+    public static int numberOfArithmeticSlices(int[] A) {
+        int curr = 0, sum = 0;
+        for (int i = 2; i < A.length; i++)
+            if (A[i] - A[i - 1] == A[i - 1] - A[i - 2]) {
+                curr += 1;
+                sum += curr;
+            } else {
+                curr = 0;
+            }
+        return sum;
     }
 
     public static void main(String[] args) {
