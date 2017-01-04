@@ -18,12 +18,27 @@ public class CountNumbersWithUniqueDigits {
      * 2 位为 C 9 1 * C 9 1
      * 3 位为 C 9 1 * C 9 1 * C 8 1
      */
-    public static int countNumbersWithUniqueDigits(int n) {
+    public static int countNumbersWithUniqueDigits1(int n) {
         if (n == 0) return 1;
         int count = 9;
         for (int i = 9, bit = n; bit >= 2; i--, bit--)
             count *= i;
         return count + countNumbersWithUniqueDigits(n - 1);
+    }
+
+    /**
+     * solution 2
+     * 大于10为之后不用计算
+     */
+    public static int countNumbersWithUniqueDigits(int n) {
+        if (n == 0) return 1;
+
+        int count = 10, base = 9;
+        for (int i = 2; i <= n && i <= 10; i++) {
+            base *= (9 - i + 2);
+            count += base;
+        }
+        return count;
     }
 
     public static void main(String[] args) {
