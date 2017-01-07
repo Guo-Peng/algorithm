@@ -63,6 +63,10 @@ public class IntegerBreak {
     /**
      * solution 4   0ms
      * 2 3直接返回
+     * (N/2)*(N/2)>=N, then N>=4
+     * <p>
+     * (N-1)/2 *(N+1)/2>=N, then N>=5
+     * 拆解为两个,然后继续拆,只要N大于4 就能拆解使积更大
      * 默认3越多积越大 对于4 则拆为2 2
      */
     public static int integerBreak(int n) {
