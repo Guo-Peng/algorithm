@@ -49,7 +49,7 @@ public class IntegerBreak {
      * 修改最优解
      * 可以只拆解 2 3
      */
-    public static int integerBreak(int n) {
+    public static int integerBreak3(int n) {
         int[] dp = new int[n + 1];
         dp[2] = 1;
         for (int i = 3; i <= n; i++) {
@@ -58,6 +58,24 @@ public class IntegerBreak {
             }
         }
         return dp[n];
+    }
+
+    /**
+     * solution 4   0ms
+     * 2 3直接返回
+     * 默认3越多积越大 对于4 则拆为2 2
+     */
+    public static int integerBreak(int n) {
+        if (n == 2) return 1;
+        if (n == 3) return 2;
+        int product = 1;
+        while (n > 4) {
+            product *= 3;
+            n -= 3;
+        }
+        product *= n;
+
+        return product;
     }
 
     public static void main(String[] args) {
