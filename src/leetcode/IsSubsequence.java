@@ -25,50 +25,23 @@ import java.util.HashSet;
  * If there are lots of incoming S, say S1, S2, ... , Sk where k >= 1B, and you want to check one by one to see if T has its subsequence. In this scenario, how would you change your code?
  */
 public class IsSubsequence {
-    /**
-     * solution 1 time limit
-     * 构造正则进行匹配
-     */
-    public static boolean isSubsequence1(String s, String t) {
-        String reg = ".*";
-        for (int i = 0; i < s.length(); i++) reg += s.charAt(i) + ".*";
-        return t.matches(reg);
-
-    }
 
     /**
-     * solution 2   354 ms
-     * 保存匹配到的所有子序列
-     * 遍历检测所有上一轮的子序列
+     * solution 1    39ms
+     * 只要出现即可,不需要检测多个子序列
      */
     public static boolean isSubsequence(String s, String t) {
-        if (s == null) return false;
-        if (s.equals("")) return true;
-
-        HashSet<String> tmp = new HashSet<>();
-        HashSet<String> result = new HashSet<>();
-
+        if (s.length() == 0) return true;
+        int index = 0;
         for (int i = 0; i < t.length(); i++) {
-            if (s.charAt(0) == t.charAt(i)) result.add(s.charAt(0) + "");
-
-            for (String ele : tmp) {
-                if (s.charAt(ele.length()) == t.charAt(i)) {
-                    if (ele.length() == s.length() - 1)
-                        return true;
-                    result.add(ele + s.charAt(ele.length()));
-                } else result.add(ele);
-            }
-
-
-            tmp = result;
-            result = new HashSet<>();
+            if (s.charAt(index) == t.charAt(i)) index++;
+            if (index == s.length()) return true;
         }
-
         return false;
     }
 
     public static void main(String[] args) {
-        String s = "abc";
+        String s = "axc";
         String t = "ahbgdc";
         System.out.println(isSubsequence(s, t));
     }
