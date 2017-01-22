@@ -42,7 +42,7 @@ public class IsSubsequence {
     /**
      * binary search  61ms
      */
-    public boolean isSubsequence(String s, String t) {
+    public static boolean isSubsequence(String s, String t) {
         List<Integer>[] idx = new List[256]; // Just for clarity
         for (int i = 0; i < t.length(); i++) {
             if (idx[t.charAt(i)] == null)
