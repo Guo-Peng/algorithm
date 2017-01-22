@@ -24,11 +24,10 @@ public class StrobogrammaticNumber {
         map.put('0', '0');
 
         int l = num.length();
-        char[] arr = num.toCharArray();
         for (int i = 0; i <= l - i - 1; i++) {
-            if (!(map.containsKey(arr[i]) && map.containsKey(arr[l - i - 1]) && map.get(arr[i]).equals(arr[l - i - 1])))
+            if (!(map.containsKey(num.charAt(i)) && map.get(num.charAt(i)).equals(num.charAt(l - i - 1))))
                 return false;
-            System.out.println(String.format("%s -> %S", arr[i], arr[l - i - 1]));
+            System.out.println(String.format("%s -> %S", num.charAt(i), num.charAt(l - i - 1)));
         }
         return true;
     }
